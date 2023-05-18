@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "outDir": "./.gen-api",
+    "strict": false,
+    "esModuleInterop": true
+  }
+}

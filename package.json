@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "dev": "npx tsc gen-doc.ts && node gen-doc.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "tcb-router": "^1.1.2",
+    "wx-server-sdk": "^2.6.3"
+  }
+}
