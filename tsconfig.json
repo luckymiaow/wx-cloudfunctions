@@ -3,17 +3,19 @@
     "target": "esnext",
     "module": "commonjs",
     "moduleResolution": "node",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
     "paths": {
       "@/*": [
-        "./*"
-      ]
+        /* 此路径编译成与当前应用为跟路径的路径 */
+        "./*",
+      ],
     },
-    "outDir": "./.gen-api",
+    "rootDir": "./", //当前编译库的根目录
+    "outDir": "./cloudfunctions",
     "strict": false,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  },
+  "apiDoc": {
+    "outDir": "./.generated",
   }
 }

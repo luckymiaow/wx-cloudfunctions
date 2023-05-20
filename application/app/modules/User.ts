@@ -6,14 +6,17 @@
  */
 
 import { DB } from "@/common/DB";
-import { User } from "@/models/User";
+import { User } from "@/common/models/User";
 
 /*
  *名则是表名，config.json
  */
 
 export default {
-  findById(id: string) {},
+  findById(id: string) {
+    const user = new User();
+    const db = new DB();
+  },
 
   find(where) {},
 };

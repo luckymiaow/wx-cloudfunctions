@@ -8,8 +8,10 @@ import cloud from "wx-server-sdk";
 import TcbRouter from "tcb-router";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import router from "./router";
+import router from "@/application/app/router";
+import config from "./config.json";
 
+cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV as any });
 /*
  *主入口
  */

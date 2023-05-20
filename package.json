@@ -1,8 +1,15 @@
 {
   "scripts": {
-    "dev": "npx tsc gen-doc.ts && node gen-doc.js"
+    "dev": "npx tsc .build/gen-doc.ts && yarn gen-doc",
+    "ge-doc": " node .build/gen-doc.js",
+    "router-dev": "npx tsc .build/gen-router.ts && yarn gen-router",
+    "router": "node .build/gen-router.js",
+    "compiler-dev": "npx tsc .build/compiler.ts && yarn compiler",
+    "compiler": "node .build/compiler.js"
   },
   "devDependencies": {
+    "prettier": "^2.8.8",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   },
   "dependencies": {
