@@ -127,6 +127,24 @@ function configureDependencies(outDir) {
         });
     });
 }
+function getRelativePath(fileName, toPath) {
+    var name = getAppName(fileName);
+    if (/^@\/common/.test(toPath)) {
+        toPath = path.join(toPath.replace(/^@\/common\//, path.join(name, "common", "/")));
+    }
+    if (/^@\/application/.test(toPath)) {
+        toPath = toPath.replace(/^@\/application\//, "");
+    }
+    var fromPath = path
+        .join(path.join(process.cwd(), "/"), path.join(fileName).replace(path.join(process.cwd(), "/"), ""))
+        .replace(path.join("application", "/"), "");
+    var relativePath = path.relative(path.dirname(fromPath), path.dirname(toPath));
+    var t = path.join(relativePath, path.basename(toPath)).replace(/\\/g, "/");
+    if (!relativePath || !relativePath.startsWith('.')) {
+        return "./" + t;
+    }
+    return t;
+}
 function customPath(context) {
     var factory = ts.factory;
     return function (sourceFile) {
@@ -142,13 +160,7 @@ function customPath(context) {
                     if (/^[",']@\//.test(moduleName.getText()) &&
                         ts.isStringLiteral(moduleName)) {
                         var importPath = moduleName.text;
-                        var newImportPath = importPath;
-                        if (/^@\/common/.test(importPath)) {
-                            newImportPath = importPath.replace("@/common", "/common");
-                        }
-                        if (/^@\/application/.test(importPath)) {
-                            newImportPath = importPath.replace(/^@\/application\/([^/]+)/, "");
-                        }
+                        var newImportPath = getRelativePath(sourceFile.fileName, importPath);
                         var newModuleName = factory.createStringLiteral(newImportPath);
                         var newImportDeclaration = factory.updateImportDeclaration(node, node.modifiers, node.importClause, newModuleName, node.assertClause);
                         return newImportDeclaration;

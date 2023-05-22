@@ -1,22 +1,28 @@
-/*
- * @Description:
- * @Author: luckymiaow
- * @Date: 2023-05-17 17:25:02
- * @LastEditors: luckymiaow
- */
-
 import { DB } from "@/common/DB";
 import { User } from "@/common/models/User";
+import { Task } from "@/common/models/Task";
+import { throwBadRequestError } from "@/common/index";
 
-/*
- *名则是表名，config.json
- */
+export default class UserController {
+  private user: DB<typeof User>;
+  private task: DB<typeof Task>;
 
-export default {
-  findById(id: string) {
-    const user = new User();
-    const db = new DB();
-  },
+  constructor(req: RouterRequest) {
+    this.user = new DB(req.ctx, User);
+    this.task = new DB(req.ctx, Task);
+  }
 
-  find(where) {},
-};
+  findById(this: RequestCtx<typeof UserController>, id: string) {
+    throw new Error("Method not implemented.");
+  }
+
+  find(this: RequestCtx<typeof UserController>) {
+    return [1, 2, 3];
+    // return this.user.find();
+  }
+
+  save(data: User) {
+    throwBadRequestError("参数错误");
+    return this.user.save(data);
+  }
+}
