@@ -1,2 +1,2 @@
-export * from "./Error";
-export * from "./DB";
+export * from './Error'
+export * from './DB'

@@ -1,5 +1,4 @@
-type RequestCtx<T extends new (...args: any[]) => any> = RouterRequest &
-  InstanceType<T>;
+type RequestCtx<T extends new (...args: any[]) => any> = RouterRequest & InstanceType<T>;
 
 type RouterRequest = {
   ctx: Ctx;

@@ -2,20 +2,20 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
+    "strict": true,
     "moduleResolution": "node",
     "paths": {
       "@/*": [
         /* 此路径编译成与当前应用为跟路径的路径 */
-        "./*",
-      ],
+        "./*"
+      ]
     },
-    "rootDir": "./", //当前编译库的根目录
+    "rootDir": "./", // 当前编译库的根目录
     "outDir": "./cloudfunctions",
-    "strict": false,
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
   "apiDoc": {
-    "outDir": "./.generated",
+    "outDir": "./.generated"
   }
 }

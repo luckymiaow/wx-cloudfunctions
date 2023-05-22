@@ -1,4 +1,4 @@
-import { Base } from "./Base/Base";
+import { Base } from './Base/Base'
 
 export class User extends Base {
   /**
@@ -6,7 +6,7 @@ export class User extends Base {
    * @type {string}
    * @memberof IUser
    */
-  name: string;
+  name: string
 
-  password?: string;
+  password?: string
 }
