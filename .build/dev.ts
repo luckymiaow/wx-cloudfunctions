@@ -1,11 +1,11 @@
-const fs = require("fs");
+import * as fs from "fs";
 const path = require("path");
 const { exec, spawn } = require("child_process");
 const http = require("http");
 const formidable = require("formidable");
+const swaggerJsdoc = require("swagger-jsdoc");
 
 let server;
-let compilerProcess;
 
 // 监视的目录路径列表
 const watchDirectories = [
@@ -13,8 +13,9 @@ const watchDirectories = [
   path.resolve(process.cwd(), "common"),
 ];
 
-// 编译指令
-const compileCommand = "node .build/compiler.js";
+const whitelist = fs
+  .readdirSync(path.resolve(process.cwd(), "application"))
+  .map((e) => path.resolve(process.cwd(), "application", e, "router.ts"));
 
 // 初始化监视器
 const initializeWatcher = () => {
@@ -22,16 +23,22 @@ const initializeWatcher = () => {
     // 监视目录变化
     fs.watch(directory, { recursive: true }, (eventType, filename) => {
       if (eventType === "change" && filename.endsWith(".ts")) {
-        console.log(
-          `File ${filename} in ${directory} has changed. Recompiling...`
-        );
-        compile();
+        const filePath = path.resolve(directory, filename);
+
+        if (!whitelist.includes(filePath)) {
+          console.log(
+            `File ${filename} in ${directory} has changed. Recompiling...`
+          );
+          compile();
+        }
       }
     });
 
     console.log(`Watching directory ${directory} for changes...`);
   });
 };
+
+let compilerProcess;
 
 // 执行编译指令
 const compile = () => {
@@ -43,7 +50,11 @@ const compile = () => {
   }
 
   // 启动新的编译进程
-  compilerProcess = spawn("node", [".build/compiler.js"], { stdio: "inherit" });
+  compilerProcess = spawn(
+    "node",
+    [".build/gen-router.js", ".build/compiler.js"],
+    { stdio: "inherit" }
+  );
 
   compilerProcess.on("exit", (code, signal) => {
     if (signal === "SIGINT") {
@@ -113,6 +124,7 @@ const startServer = () => {
   const port = 3000;
   server.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`);
+    // console.log(`Server running at http://localhost:${port}/swagger`);
   });
 };
 

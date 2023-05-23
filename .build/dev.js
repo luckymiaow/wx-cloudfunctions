@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,34 +35,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require("fs");
 var path = require("path");
 var _a = require("child_process"), exec = _a.exec, spawn = _a.spawn;
 var http = require("http");
 var formidable = require("formidable");
+var swaggerJsdoc = require("swagger-jsdoc");
 var server;
-var compilerProcess;
 // 监视的目录路径列表
 var watchDirectories = [
     path.resolve(process.cwd(), "application"),
     path.resolve(process.cwd(), "common"),
 ];
-// 编译指令
-var compileCommand = "node .build/compiler.js";
+var whitelist = fs
+    .readdirSync(path.resolve(process.cwd(), "application"))
+    .map(function (e) { return path.resolve(process.cwd(), "application", e, "router.ts"); });
 // 初始化监视器
 var initializeWatcher = function () {
     watchDirectories.forEach(function (directory) {
         // 监视目录变化
         fs.watch(directory, { recursive: true }, function (eventType, filename) {
             if (eventType === "change" && filename.endsWith(".ts")) {
-                console.log("File ".concat(filename, " in ").concat(directory, " has changed. Recompiling..."));
-                compile();
+                var filePath = path.resolve(directory, filename);
+                if (!whitelist.includes(filePath)) {
+                    console.log("%c [ whitelist ]-29", "font-size:13px; background:pink; color:#bf2c9f;", whitelist, filePath);
+                    console.log("File ".concat(filename, " in ").concat(directory, " has changed. Recompiling..."));
+                    compile();
+                }
             }
         });
         console.log("Watching directory ".concat(directory, " for changes..."));
     });
 };
+var compilerProcess;
 // 执行编译指令
 var compile = function () {
     // 中断上次的编译进程
@@ -71,7 +78,7 @@ var compile = function () {
         console.log("Compilation interrupted. Starting new compilation...");
     }
     // 启动新的编译进程
-    compilerProcess = spawn("node", [".build/compiler.js"], { stdio: "inherit" });
+    compilerProcess = spawn("node", [".build/gen-router.js", ".build/compiler.js"], { stdio: "inherit" });
     compilerProcess.on("exit", function (code, signal) {
         if (signal === "SIGINT") {
             console.log("Compilation interrupted.");
@@ -107,7 +114,7 @@ var startServer = function () {
         // 解析请求的 URL 和方法
         var url = req.url, method = req.method, headers = req.headers;
         var form = new formidable.IncomingForm();
-        form.parse(req, function (err, fields, files) { return __awaiter(_this, void 0, void 0, function () {
+        form.parse(req, function (err, fields, files) { return __awaiter(void 0, void 0, void 0, function () {
             var app, r;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -142,6 +149,7 @@ var startServer = function () {
     var port = 3000;
     server.listen(port, function () {
         console.log("Server running at http://localhost:".concat(port, "/"));
+        // console.log(`Server running at http://localhost:${port}/swagger`);
     });
 };
 // 启动监视器

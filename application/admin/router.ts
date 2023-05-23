@@ -6,17 +6,8 @@
  */
 import TcbRouter from "tcb-router";
 import * as Errors from "@/common/Error";
-import Test from "./modules/Test";
-import User from "./modules/User";
 
-export const routerList = {
-  "Test/find": { handler: "find", model: Test },
-  "Test/save": { handler: "save", model: Test },
-  "Test/update": { handler: "update", model: Test },
-  "User/findById": { handler: "findById", model: User },
-  "User/find": { handler: "find", model: User },
-  "User/save": { handler: "save", model: User },
-};
+export const routerList = {};
 
 export const whitelist = {};
 

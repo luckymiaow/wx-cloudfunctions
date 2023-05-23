@@ -2,14 +2,15 @@
   "scripts": {
     "dev": "yarn compiler && npx tsc .build/dev.ts && node .build/dev.js",
     "ge-doc": " node .build/gen-doc.js",
-    "router-dev": "npx tsc .build/gen-router.ts && yarn gen-router",
-    "router": "node .build/gen-router.js",
-    "compiler-dev": "npx tsc .build/compiler.ts && yarn compiler",
-    "compiler": "node .build/compiler.js"
+    "compiler-dev": "npx tsc .build/compiler.ts  && yarn router-dev && yarn compiler",
+    "compiler": "yarn router && node .build/compiler.js",
+    "router-dev": "npx tsc .build/gen-router.ts && yarn router",
+    "router": "node .build/gen-router.js"
   },
   "devDependencies": {
     "formidable": "^2.1.1",
     "prettier": "^2.8.8",
+    "swagger-jsdoc": "^6.2.8",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   },
