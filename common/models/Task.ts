@@ -4,7 +4,7 @@
  * @Date: 2023-05-21 22:17:26
  * @LastEditors: luckymiaow
  */
-import { Base } from "./Base/Base";
+import { Base } from './Base/Base'
 
 export class Task extends Base {
   /**
@@ -12,7 +12,7 @@ export class Task extends Base {
    * @type {string}
    * @memberof IUser
    */
-  name: string;
+  name: string
 
-  password?: string;
+  password?: string
 }

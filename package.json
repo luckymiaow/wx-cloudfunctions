@@ -5,18 +5,22 @@
     "compiler-dev": "npx tsc .build/compiler.ts  && yarn router-dev && yarn compiler",
     "compiler": "yarn router && node .build/compiler.js",
     "router-dev": "npx tsc .build/gen-router.ts && yarn router",
-    "router": "node .build/gen-router.js"
-  },
-  "devDependencies": {
-    "formidable": "^2.1.1",
-    "prettier": "^2.8.8",
-    "swagger-jsdoc": "^6.2.8",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.0.4"
+    "router": "node .build/gen-router.js",
+    "lint": "eslint common application --fix"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "tcb-router": "^1.1.2",
     "wx-server-sdk": "^2.6.3"
+  },
+  "devDependencies": {
+    "swagger-jsdoc": "^6.2.8",
+    "@antfu/eslint-config": "^0.39.1",
+    "@types/wx-server-sdk": "^0.8.1",
+    "eslint": "^8.41.0",
+    "formidable": "^2.1.1",
+    "prettier": "^2.8.8",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.0.4"
   }
 }

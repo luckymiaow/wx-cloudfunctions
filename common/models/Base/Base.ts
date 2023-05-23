@@ -1,4 +1,4 @@
-import { AuditMetadata } from "./AuditMetadata";
+import type { AuditMetadata } from './AuditMetadata'
 
 /*
  * @Description:
@@ -7,6 +7,6 @@ import { AuditMetadata } from "./AuditMetadata";
  * @LastEditors: luckymiaow
  */
 export class Base {
-  _id: string;
-  auditMetadata: AuditMetadata;
+  _id: string
+  auditMetadata: AuditMetadata
 }

@@ -59,7 +59,6 @@ var initializeWatcher = function () {
             if (eventType === "change" && filename.endsWith(".ts")) {
                 var filePath = path.resolve(directory, filename);
                 if (!whitelist.includes(filePath)) {
-                    console.log("%c [ whitelist ]-29", "font-size:13px; background:pink; color:#bf2c9f;", whitelist, filePath);
                     console.log("File ".concat(filename, " in ").concat(directory, " has changed. Recompiling..."));
                     compile();
                 }

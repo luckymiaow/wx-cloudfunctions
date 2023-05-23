@@ -4,47 +4,55 @@
  * @Date: 2023-05-17 20:05:27
  * @LastEditors: luckymiaow
  */
-import TcbRouter from "tcb-router";
-import * as Errors from "@/common/Error";
+import TcbRouter from 'tcb-router';
+
+import * as Errors from '@/common/Error';
 
 export const routerList = {};
 
 export const whitelist = {};
 
-export const useRouter = (event, context) => {
+export function useRouter(event: any) {
   const app = new TcbRouter({ event });
 
   /* 异常处理拦截器 */
-  app.use(async (ctx, next) => {
-    try {
-      if (!(ctx._req.event.$url in routerList))
-        throw new Errors.NotFoundError();
-      await next();
-    } catch (err) {
-      let res = {
-        code: 500,
-        message: err.message,
-        success: false,
-      };
-      for (const key in Errors) {
-        if (err instanceof Errors[key]) {
-          res = {
-            code: err.statusCode,
-            message: err.message,
-            success: false,
-          };
-          break;
+  app.use(
+    async (
+      ctx: {
+        _req: { event: { $url: string } };
+        body: { code: number; message: any; success: boolean };
+      },
+      next: () => any
+    ) => {
+      try {
+        if (!(ctx._req.event.$url in routerList)) throw new Errors.NotFoundError();
+        await next();
+      } catch (err: any) {
+        let res = {
+          code: 500,
+          message: err.message,
+          success: false,
+        };
+        for (const key in Errors) {
+          if (err instanceof (Errors as any)[key]) {
+            res = {
+              code: err.statusCode,
+              message: err.message,
+              success: false,
+            };
+            break;
+          }
         }
+        ctx.body = res;
       }
-      ctx.body = res;
     }
-  });
+  );
 
-  Object.keys(routerList).forEach((key) => {
-    const { handler, model } = routerList[key];
-    app.router(key, async (ctx, next) => {
-      const fn = async function (...args) {
-        const instance = new model({ ctx: ctx, next: next });
+  (Object.keys(routerList) as Array<keyof typeof routerList>).forEach(key => {
+    const { handler, model: Model } = routerList[key];
+    app.router(key, async (ctx: any, next: any) => {
+      const fn = async function (...args: unknown[]) {
+        const instance: any = new Model({ ctx, next });
         instance.ctx = ctx;
         instance.next = next;
         const res = await instance[handler].bind(instance)(...args);
@@ -55,13 +63,10 @@ export const useRouter = (event, context) => {
         };
       };
 
-      if (ctx._req.event.params) {
-        await fn(...Object.values(ctx._req.event.params), ctx._req.event.data);
-      } else {
-        await fn(ctx._req.event.data);
-      }
+      if (ctx._req.event.params) await fn(...Object.values(ctx._req.event.params), ctx._req.event.data);
+      else await fn(ctx._req.event.data);
     });
   });
 
   return app;
-};
+}

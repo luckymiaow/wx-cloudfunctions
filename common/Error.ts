@@ -10,12 +10,12 @@
  * @author: luckymiaow
  */
 export class BadRequestError extends Error {
-  statusCode: number;
+  statusCode: number
 
   constructor(message?: string) {
-    super(message || "BadRequestError");
-    this.name = "BadRequestError";
-    this.statusCode = 400;
+    super(message || 'BadRequestError')
+    this.name = 'BadRequestError'
+    this.statusCode = 400
   }
 }
 /**
@@ -24,7 +24,7 @@ export class BadRequestError extends Error {
  * @author: luckymiaow
  */
 export function throwBadRequestError(message?: string): never {
-  throw new BadRequestError(message);
+  throw new BadRequestError(message)
 }
 
 /**
@@ -33,12 +33,12 @@ export function throwBadRequestError(message?: string): never {
  * @author: luckymiaow
  */
 export class UnauthorizedError extends Error {
-  statusCode: number;
+  statusCode: number
 
   constructor(message?: string) {
-    super(message || "UnauthorizedError");
-    this.name = "UnauthorizedError";
-    this.statusCode = 401;
+    super(message || 'UnauthorizedError')
+    this.name = 'UnauthorizedError'
+    this.statusCode = 401
   }
 }
 /**
@@ -47,7 +47,7 @@ export class UnauthorizedError extends Error {
  * @author: luckymiaow
  */
 export function throwUnauthorizedError(message?: string): never {
-  throw new UnauthorizedError(message);
+  throw new UnauthorizedError(message)
 }
 
 /**
@@ -56,17 +56,17 @@ export function throwUnauthorizedError(message?: string): never {
  * @author: luckymiaow
  */
 export class ForbiddenError extends Error {
-  statusCode: number;
+  statusCode: number
 
   constructor(message?: string) {
-    super(message || "ForbiddenError");
-    this.name = "ForbiddenError";
-    this.statusCode = 403;
+    super(message || 'ForbiddenError')
+    this.name = 'ForbiddenError'
+    this.statusCode = 403
   }
 }
 
 export function throwForbiddenError(message?: string): never {
-  throw new ForbiddenError(message);
+  throw new ForbiddenError(message)
 }
 
 /**
@@ -75,12 +75,12 @@ export function throwForbiddenError(message?: string): never {
  * @author: luckymiaow
  */
 export class NotFoundError extends Error {
-  statusCode: number;
+  statusCode: number
 
   constructor(message?: string) {
-    super(message || "NotFoundError");
-    this.name = "NotFoundError";
-    this.statusCode = 404;
+    super(message || 'NotFoundError')
+    this.name = 'NotFoundError'
+    this.statusCode = 404
   }
 }
 
@@ -90,7 +90,7 @@ export class NotFoundError extends Error {
  * @author: luckymiaow
  */
 export function throwNotFoundError(message?: string): never {
-  throw new NotFoundError(message);
+  throw new NotFoundError(message)
 }
 
 /**
@@ -99,12 +99,12 @@ export function throwNotFoundError(message?: string): never {
  * @author: luckymiaow
  */
 export class InternalServerError extends Error {
-  statusCode: number;
+  statusCode: number
 
   constructor(message?: string) {
-    super(message || "InternalServerError");
-    this.name = "InternalServerError";
-    this.statusCode = 500;
+    super(message || 'InternalServerError')
+    this.name = 'InternalServerError'
+    this.statusCode = 500
   }
 }
 /**
@@ -113,5 +113,5 @@ export class InternalServerError extends Error {
  * @author: luckymiaow
  */
 export function throwInternalServerError(message?: string): never {
-  throw new InternalServerError(message);
+  throw new InternalServerError(message)
 }

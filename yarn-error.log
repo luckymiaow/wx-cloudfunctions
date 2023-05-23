@@ -1,0 +1,56 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\dotnet\;C:\Users\QAQ\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files (x86)\Tencent\微信web开发者工具\dll;C:\Users\QAQ\AppData\Local\Microsoft\WindowsApps;C:\Users\QAQ\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\QAQ\.dotnet\tools;C:\Users\QAQ\AppData\Roaming\nvm;C:\Program Files\nodejs
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.18.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  SyntaxError: E:\demo\wx-clone\package.json: Unexpected token } in JSON at position 435
+      at JSON.parse (<anonymous>)
+      at C:\Users\QAQ\AppData\Roaming\nvm\v16.18.0\node_modules\yarn\lib\cli.js:1629:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\QAQ\AppData\Roaming\nvm\v16.18.0\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\QAQ\AppData\Roaming\nvm\v16.18.0\node_modules\yarn\lib\cli.js:321:13
+
+npm manifest: 
+  {
+    "scripts": {
+      "dev": "yarn compiler && npx tsc .build/dev.ts && node .build/dev.js",
+      "ge-doc": " node .build/gen-doc.js",
+      "compiler-dev": "npx tsc .build/compiler.ts  && yarn router-dev && yarn compiler",
+      "compiler": "yarn router && node .build/compiler.js",
+      "router-dev": "npx tsc .build/gen-router.ts && yarn router",
+      "router": "node .build/gen-router.js",
+      "lint": "eslint common application --fix",
+    },
+    "dependencies": {
+      "bcryptjs": "^2.4.3",
+      "tcb-router": "^1.1.2",
+      "wx-server-sdk": "^2.6.3"
+    },
+    "devDependencies": {
+      "swagger-jsdoc": "^6.2.8",
+      "@antfu/eslint-config": "^0.39.1",
+      "@types/wx-server-sdk": "^0.8.1",
+      "eslint": "^8.41.0",
+      "formidable": "^2.1.1",
+      "prettier": "^2.8.8",
+      "tsconfig-paths": "^4.2.0",
+      "typescript": "^5.0.4"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
