@@ -7,6 +7,7 @@ import type { AuditMetadata } from './AuditMetadata'
  * @LastEditors: luckymiaow
  */
 export class Base {
-  _id: string
-  auditMetadata: AuditMetadata
+  _id!: string;
+
+  auditMetadata!: AuditMetadata;
 }

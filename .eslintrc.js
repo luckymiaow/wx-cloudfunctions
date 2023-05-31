@@ -16,5 +16,8 @@ module.exports = {
     '@typescript-eslint/brace-style': 0,
     'arrow-parens': 0,
     '@typescript-eslint/member-delimiter-style': 0,
+
+    // add rule
+    'no-console': 0,
   },
 };

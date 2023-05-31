@@ -14,45 +14,23 @@ type ModelType<T> = new (...args: any[]) => T;
 
 type CollectionReference = cloud.DB.CollectionReference
 
-export class DB implements cloud.DB.Database {
-  public identifiers!: cloud.IRuntimeIdentifiers;
-  public config!: cloud.DB.IDatabaseConfig;
-  public command!: cloud.DB.DatabaseCommand;
-  public Geo!: cloud.DB.IGeo;
-  public serverDate!: () => cloud.DB.ServerDate;
-  public RegExp!: cloud.DB.IRegExpConstructor;
-  public debug?: boolean | undefined;
-
-  private db = cloud.database();
-  ctx: Ctx;
-
-  collection(collectionName: string): cloud.DB.CollectionReference {
-    throw new Error('Method not implemented.');
-  }
-
-  getCollection<T>(Model: ModelType<T>): Collection<new (...args: any[]) => Base> {
-    return new Collection(this.ctx, Model);
-  }
-
-  constructor(ctx: Ctx) {
-    Object.assign(this, this.db)
-    this.ctx = ctx;
-  }
-}
-
-export class Collection<T extends new (...args: any[]) => Base> {
+export class DB<T extends new (...args: any[]) => Base> {
   private db = cloud.database();
   service: CollectionReference;
   ctx: Ctx;
 
-  constructor(ctx: Ctx, Model: ModelType<T>) {
-    this.service = this.collection(Model);
+  constructor(ctx: Ctx, model: T) {
+    this.service = this.getCollection(model.name);
     this.ctx = ctx;
   }
 
-  collection<T>(Model: ModelType<T>): CollectionReference;
-  collection<T>(name: string): CollectionReference;
-  collection<T>(Model: ModelType<T> | string): CollectionReference {
+  get collection() {
+    return this.service;
+  }
+
+  getCollection<T>(Model: ModelType<T>): CollectionReference;
+  getCollection<T>(Model: string): CollectionReference;
+  getCollection<T>(Model: ModelType<T> | string): CollectionReference {
     const collectionName = typeof Model === 'string' ? Model : Model.name;
     return this.db.collection(collectionName);
   }

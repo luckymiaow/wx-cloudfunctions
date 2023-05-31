@@ -1,7 +1,12 @@
-import { DB } from "@/common/DB";
-import { User } from "@/common/models/User";
-import { Task } from "@/common/models/Task";
-import { throwBadRequestError } from "@/common/index";
+/*
+ * @Description: ^_^
+ * @Author: sharebravery
+ * @Date: 2023-05-22 17:23:19
+ */
+import { DB } from '@/common/DB';
+import { User } from '@/common/models/User';
+import { Task } from '@/common/models/Task';
+import { throwBadRequestError } from '@/common/index';
 
 /**
  * 用户
@@ -22,7 +27,7 @@ export default class UserController {
    * @whiteBook true
    */
   findById(this: RequestCtx<typeof UserController>, id: string) {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   /**
@@ -41,7 +46,7 @@ export default class UserController {
    * @returns
    */
   save(data: User) {
-    throwBadRequestError("参数错误");
+    throwBadRequestError('参数错误');
     return this.user.save(data);
   }
 }

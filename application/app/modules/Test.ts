@@ -7,12 +7,14 @@
 
 export default class Test {
   find() {
-    console.log("Test find");
+    console.log('Test find');
   }
+
   save() {
-    console.log("Test save ");
+    console.log('Test save ');
   }
+
   update() {
-    console.log("Test update");
+    console.log('Test update');
   }
 }
