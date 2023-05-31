@@ -10,6 +10,8 @@ import { BadRequestError } from './Error';
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV as any });
 
+const db = cloud.database();
+
 type ModelType<T> = new (...args: any[]) => Base;
 
 type CollectionReference = cloud.DB.CollectionReference
@@ -23,7 +25,6 @@ export class DB implements cloud.DB.Database {
   public RegExp!: cloud.DB.IRegExpConstructor;
   public debug?: boolean | undefined;
 
-  private db = cloud.database();
   ctx: Ctx;
 
   collection(collectionName: string): cloud.DB.CollectionReference {
@@ -35,13 +36,13 @@ export class DB implements cloud.DB.Database {
   }
 
   constructor(ctx: Ctx) {
-    Object.assign(this, this.db)
+    Object.assign(this, db)
     this.ctx = ctx;
   }
 }
 
 export class Collection<T extends new (...args: any[]) => Base> {
-  private db = cloud.database();
+  private db = db;
   service: CollectionReference;
   ctx: Ctx;
 
