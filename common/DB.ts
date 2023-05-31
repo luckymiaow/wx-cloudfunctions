@@ -10,7 +10,7 @@ import { BadRequestError } from './Error';
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV as any });
 
-type ModelType<T> = new (...args: any[]) => T;
+type ModelType<T> = new (...args: any[]) => Base;
 
 type CollectionReference = cloud.DB.CollectionReference
 
